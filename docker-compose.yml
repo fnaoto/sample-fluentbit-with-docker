@@ -34,7 +34,7 @@ services:
     image: nginx:latest
     ports:
       - '8080:80'
-    links:
+    depends_on:
       - fluentbit
     logging:
       driver: "fluentd"
@@ -45,6 +45,8 @@ services:
     build: ./dummer
     volumes:
       - ./log:/var/log
+    depends_on:
+      - fluentbit
     logging:
       driver: "fluentd"
       options:
