@@ -30,3 +30,15 @@ services:
     ports:
       - '1080:1080'
       - '1025:1025'
+  nginx:
+    image: nginx:latest
+    ports:
+      - '8080:80'
+    links:
+      - fluentbit
+    logging:
+      driver: "fluentd"
+      options:
+        fluentd-address: localhost:24224
+        fluentd-async-connect: 'true'
+        tag: nginx.log
