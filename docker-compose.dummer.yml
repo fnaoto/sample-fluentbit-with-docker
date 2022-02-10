@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  dummer:
+    build: ./dummer
+    volumes:
+      - ./log:/var/log
+    depends_on:
+      - fluentbit
+    logging:
+      driver: "fluentd"
+      options:
+        fluentd-address: localhost:24224
+        tag: dummer.log
