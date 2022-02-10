@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  fluentbit:
+    image: fluent/fluent-bit:latest
+    volumes:
+      - ./fluent-bit/etc:/fluent-bit/etc
+      - ./fluent-bit/parsers:/fluent-bit/parsers
+      - ./fluent-bit/scripts:/fluent-bit/scripts
+      - ./log:/var/log
+    ports:
+      - '24224:24224'
+  apache:
+    image: httpd:latest
+    ports:
+      - '80:80'
+    volumes:
+      - ./httpd/httpd.conf:/usr/local/apache2/conf/httpd.conf
+      - ./log:/var/log
+  postfix:
+    build: ./postfix
+    ports:
+      - '25:25'
+    volumes:
+      - ./postfix/main.cf:/etc/postfix/main.cf
+      - ./postfix/master.cf:/etc/postfix/master.cf
+      - ./log:/var/log
+  mailcatcher:
+    build: ./mailcatcher
+    ports:
+      - '1080:1080'
+      - '1025:1025'
