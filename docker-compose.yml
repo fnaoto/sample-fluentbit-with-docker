@@ -7,5 +7,13 @@ services:
       - ./fluent-bit/etc:/fluent-bit/etc
       - ./fluent-bit/parsers:/fluent-bit/parsers
       - ./fluent-bit/scripts:/fluent-bit/scripts
+      - ./log:/var/log
     ports:
       - 24224:24224
+  apache:
+    image: httpd:latest
+    ports:
+      - 80:80
+    volumes:
+      - ./httpd/httpd.conf:/usr/local/apache2/conf/httpd.conf
+      - ./log:/var/log
