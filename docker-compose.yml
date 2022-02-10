@@ -17,3 +17,9 @@ services:
     volumes:
       - ./httpd/httpd.conf:/usr/local/apache2/conf/httpd.conf
       - ./log:/var/log
+  postfix:
+    build: ./postfix
+    ports:
+      - 22:22
+    volumes:
+      - ./log:/var/log    
