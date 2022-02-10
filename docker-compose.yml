@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  fluentbit:
+    image: fluent/fluent-bit:latest
+    volumes:
+      - ./fluent-bit/etc:/fluent-bit/etc
+      - ./fluent-bit/parsers:/fluent-bit/parsers
+      - ./fluent-bit/scripts:/fluent-bit/scripts
+    ports:
+      - 24224:24224
