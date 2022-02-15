@@ -10,6 +10,11 @@ services:
       - ./log:/var/log
     ports:
       - '24224:24224'
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 20M
   apache:
     image: httpd:latest
     ports:
