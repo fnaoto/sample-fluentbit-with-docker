@@ -6,13 +6,12 @@ dummy-log:
 email-log:
 	@echo email_log | curl --silent -k --ssl smtp://localhost:25 --mail-from test@example.com --mail-rcpt test@example.com -T -
 
-performance-test:
+performance-test-with-dummer:
 	@docker compose -f docker-compose.yml -f docker-compose.dummer.yml up -d --build
 	@date
 	@wc -l log/***/*.log
 	@ls -lsh log/***/*.log
-
-performance-test-stop:
+	@sleep 60	
 	@docker compose -f docker-compose.yml -f docker-compose.dummer.yml down
 	@date
 	@wc -l log/***/*.log
