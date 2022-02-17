@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  fluentbit:
+    image: fluent/fluent-bit:1.8
+    volumes:
+      - ./fluent-bit/etc:/fluent-bit/etc
+      - ./fluent-bit/parsers:/fluent-bit/parsers
+      - ./fluent-bit/scripts:/fluent-bit/scripts
+      - ./log:/var/log
+    ports:
+      - '24224:24224'
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 20M
