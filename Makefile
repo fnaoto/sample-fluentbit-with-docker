@@ -12,6 +12,7 @@ httpd_log:
 log: dummy_log email_log httpd_log
 
 performance-test-fluentbit:
+	@rm -f log/dummer/*
 	@rm -f log/fluent-bit/*
 	@docker compose \
 		-f docker-compose.yml \
@@ -31,6 +32,7 @@ performance-test-fluentbit:
 	@make check_log
 
 performance-test-fluentd:
+	@rm -f log/dummer/*
 	@rm -f log/fluentd/*
 	@docker compose \
 		-f docker-compose.yml \

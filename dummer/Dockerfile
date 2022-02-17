@@ -1,6 +1,9 @@
 FROM ruby:latest
 
-ADD dummer.conf dummer.conf
+ENV DUMMER_CONFIG_PATH file.conf
+ADD *.conf ./
 
+RUN mkdir -p /var/log/dummer
+RUN chmod a+rwx /var/log/dummer/
 RUN gem install dummer
-CMD dummer -c dummer.conf
+CMD dummer -c ${DUMMER_CONFIG_PATH}

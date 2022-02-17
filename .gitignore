@@ -2,3 +2,4 @@ log/**
 !log/apache2/
 !log/fluent-bit/
 !log/fluentd/
+!log/dummer/
