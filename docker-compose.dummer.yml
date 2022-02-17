@@ -4,10 +4,12 @@ services:
   dummer:
     build: ./dummer
     volumes:
-      - ./log:/var/log
+      - ./log/dummer:/var/log/dummer
     depends_on:
       - fluentbit
       - fluentd
+    env_file:
+      - .env
     logging:
       driver: "fluentd"
       options:

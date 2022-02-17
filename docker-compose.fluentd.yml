@@ -5,6 +5,7 @@ services:
     image: fluent/fluentd:v1.14
     volumes:
       - ./fluentd/etc/fluent.conf:/fluentd/etc/fluent.conf
+      - ./log/fluentd:/var/log/fluentd
       - ./log/:/var/log
     ports:
       - '24224:24224'

@@ -12,7 +12,8 @@ httpd_log:
 log: dummy_log email_log httpd_log
 
 performance-test-fluentbit:
-	@rm -f log/fluent-bit/*
+	@rm -rf log/dummer/*
+	@rm -rf log/fluent-bit/*
 	@docker compose \
 		-f docker-compose.yml \
 		-f docker-compose.fluent-bit.yml \
@@ -31,7 +32,8 @@ performance-test-fluentbit:
 	@make check_log
 
 performance-test-fluentd:
-	@rm -f log/fluentd/*
+	@rm -rf log/dummer/*
+	@rm -rf log/fluentd/*
 	@docker compose \
 		-f docker-compose.yml \
 		-f docker-compose.fluentd.yml \
@@ -50,13 +52,13 @@ performance-test-fluentd:
 	@make check_log
 
 clean:
-	@rm -rf log/**
 	@docker compose \
 		-f docker-compose.yml \
 		-f docker-compose.dummer.yml \
 		-f docker-compose.fluentd.yml \
 		-f docker-compose.fluent-bit.yml \
 			down
+	@rm -rf log/**
 
 check_log:
 	@date 
@@ -66,3 +68,11 @@ check_log:
 			echo [file size]; \
 			ls -lsh log/*; \
 		fi
+
+compose_log:
+	@docker compose \
+		-f docker-compose.yml \
+		-f docker-compose.dummer.yml \
+		-f docker-compose.fluentd.yml \
+		-f docker-compose.fluent-bit.yml \
+			logs -f
