@@ -2,7 +2,7 @@
 
 ## How to use
 
-Performance test of fluent-bit on docker compose.
+Performance test of fluent-bit and fluentd on docker compose.
 
 ```
 # diagram
@@ -10,12 +10,17 @@ Performance test of fluent-bit on docker compose.
 dummer(10000 rate)
   --> fluentbit(0.5 CPU/20MiB Memory)
     --> /log/fluent-bit/dummer.log
+
+dummer(10000 rate)
+  --> fluentd(0.5 CPU/100MiB Memory)
+    --> /log/fluentd/dummer.log
 ```
 
 Start performance test while 60 seconds with command below.
 
 ```sh
-$ make performance-test-with-dummer
+$ make performance-test-fluentbit
+$ make performance-test-fluentd
 ```
 
 ## bug 

@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  fluentd:
+    image: fluent/fluentd:v1.14
+    volumes:
+      - ./fluentd/etc/fluent.conf:/fluentd/etc/fluent.conf
+      - ./log/:/var/log
+    ports:
+      - '24224:24224'
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 100M

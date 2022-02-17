@@ -1,27 +1,13 @@
 version: '3'
 
 services:
-  fluentbit:
-    image: fluent/fluent-bit:latest
-    volumes:
-      - ./fluent-bit/etc:/fluent-bit/etc
-      - ./fluent-bit/parsers:/fluent-bit/parsers
-      - ./fluent-bit/scripts:/fluent-bit/scripts
-      - ./log:/var/log
-    ports:
-      - '24224:24224'
-    deploy:
-      resources:
-        limits:
-          cpus: '0.50'
-          memory: 20M
   apache:
     image: httpd:latest
     ports:
       - '80:80'
     volumes:
       - ./httpd/httpd.conf:/usr/local/apache2/conf/httpd.conf
-      - ./log:/var/log
+      - ./log/apache2:/var/log/apache2
   postfix:
     build: ./postfix
     ports:
@@ -30,19 +16,9 @@ services:
       - ./postfix/main.cf:/etc/postfix/main.cf
       - ./postfix/master.cf:/etc/postfix/master.cf
       - ./log:/var/log
+      - /run/rsyslogd.pid
   mailcatcher:
     build: ./mailcatcher
     ports:
       - '1080:1080'
       - '1025:1025'
-  nginx:
-    image: nginx:latest
-    ports:
-      - '8080:80'
-    depends_on:
-      - fluentbit
-    logging:
-      driver: "fluentd"
-      options:
-        fluentd-address: localhost:24224
-        tag: nginx.log
