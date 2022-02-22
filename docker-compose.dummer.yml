@@ -5,6 +5,7 @@ services:
     build: ./dummer
     volumes:
       - ./log/dummer:/var/log/dummer
+      - ./log/apache2:/var/log/apache2
     depends_on:
       - fluentbit
       - fluentd
