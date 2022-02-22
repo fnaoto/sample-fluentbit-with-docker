@@ -5,7 +5,7 @@ set -e
 trap trap_sigterm SIGTERM
 
 dummer -d -c ${DUMMER_CONFIG_PATH?}
-eval "sleep 30 && dummer stop" &
+eval "sleep 60 && dummer stop" &
 
 function trap_sigterm() {
     logrotate /logrotate.conf
