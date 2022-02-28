@@ -43,7 +43,7 @@ performance-test-fluentd:
 		-f docker-compose.dummer.yml \
 			up -d --build
 	@make check_log
-	@sleep 60
+	@sleep 10
 	@docker compose \
 		-f docker-compose.yml \
 		-f docker-compose.dummer.yml \
@@ -52,12 +52,7 @@ performance-test-fluentd:
 	@make check_log
 
 clean:
-	@docker compose \
-		-f docker-compose.yml \
-		-f docker-compose.dummer.yml \
-		-f docker-compose.fluentd.yml \
-		-f docker-compose.fluent-bit.yml \
-			down
+	@docker compose -f * down
 	@rm -rf log/**
 
 check_log:
@@ -69,10 +64,5 @@ check_log:
 			ls -lsh log/*; \
 		fi
 
-compose_log:
-	@docker compose \
-		-f docker-compose.yml \
-		-f docker-compose.dummer.yml \
-		-f docker-compose.fluentd.yml \
-		-f docker-compose.fluent-bit.yml \
-			logs -f
+compose_logs:
+	@docker compose -f * logs -f

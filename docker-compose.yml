@@ -22,3 +22,7 @@ services:
     ports:
       - '1080:1080'
       - '1025:1025'
+  logrotate:
+    build: ./logrotate
+    volumes:
+      - ./log/:/var/log/
