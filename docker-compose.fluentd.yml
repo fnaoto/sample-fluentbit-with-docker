@@ -6,7 +6,8 @@ services:
     volumes:
       - ./fluentd/etc/fluent.conf:/fluentd/etc/fluent.conf
       - ./log/fluentd:/var/log/fluentd
-      - ./log/:/var/log
+      - ./log/apache2:/var/log/apache2
+      - ./log/dummer:/var/log/dummer
     ports:
       - '24224:24224'
     deploy:

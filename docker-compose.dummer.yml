@@ -3,28 +3,15 @@ version: '3'
 services:
   dummer:
     build: ./dummer
+    stop_signal: SIGTERM
     volumes:
       - ./log/dummer:/var/log/dummer
-      - ./log/apache2:/var/log/apache2
-    depends_on:
-      - fluentbit
-      - fluentd
-    env_file:
-      - .env
-    logging:
-      driver: "fluentd"
-      options:
-        fluentd-address: localhost:24224
-        tag: dummer.log
-  nginx:
-    image: nginx:latest
-    ports:
-      - '8080:80'
-    depends_on:
+    links:
       - fluentbit
       - fluentd
     logging:
       driver: "fluentd"
       options:
         fluentd-address: localhost:24224
-        tag: nginx.log
+        fluentd-buffer-limit: 100MB
+        tag: dummer.stdout
